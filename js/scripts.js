@@ -22,95 +22,47 @@ function shuffleArray(array) {
     return array;
 }
 
-function hearts(have) {
-  if (have == "suithearts")
+function same(have, need) {
+  if (have == "suit" + need)
     return true;
 }
-function diamonds(change) {
-  if (change == "suitdiamonds")
-  return true;
-}
-function spades(have) {
-  if (have == "suitspades")
-  return true;
-}
-function clubs(have) {
-  if (have == "suitclubs")
-  return true;
-}
+
 $(document).ready(function () {
 
   order(deck);
 
   deck.forEach(function(card){
-
     var str = card.toString();
     var array = str.split(" ");
 
     $(".output").append("<div class='card " + array[1] +" remove'><p>"+ array[0] + "</p></div>");
   });
 
-  $("#sur").click(function() {
+  $("a").click(function() {
     $(".remove").remove();
-    shuffleArray(deck)
+    var data = $(this).attr('id');
+
+    var small = true;
+
+    if (data === "sur") {
+      shuffleArray(deck);
+      small = false;
+    } else if (data === "order") {
+      order(deck);
+      small = false;
+    }
+    
     deck.forEach(function(card){
       var str = card.toString();
       var array = str.split(" ");
-
-      $(".output").append("<div class='card " + array[1] +" remove'><p>"+ array[0] + "</p></div>");
-    });
-  });
-
-  $("#order").click(function() {
-
-    $(".remove").remove();
-    order(deck);
-    deck.forEach(function(card){
-      var str = card.toString();
-      var array = str.split(" ");
-
-      $(".output").append("<div class='card " + array[1] +" remove'><p>"+ array[0] + "</p></div>");
-    });
-  });
-
-  $("#hearts").click(function() {
-    $(".remove").remove();
-    deck.forEach(function(card){
-      var str = card.toString();
-      var array = str.split(" ");
-
-      if (hearts(array[1]))
+      if (same(array[1], data) && small === true) {
         $(".output").append("<div class='card " + array[1] +" remove'><p>"+ array[0] + "</p></div>");
-    });
-  });
-  $("#diamonds").click(function() {
-    $(".remove").remove();
-    deck.forEach(function(card){
-      var str = card.toString();
-      var array = str.split(" ");
+      }
 
-      if (diamonds(array[1]))
+      if (small === false) {
         $(".output").append("<div class='card " + array[1] +" remove'><p>"+ array[0] + "</p></div>");
+      }
     });
   });
-  $("#spades").click(function() {
-    $(".remove").remove();
-    deck.forEach(function(card){
-      var str = card.toString();
-      var array = str.split(" ");
 
-      if (spades(array[1]))
-        $(".output").append("<div class='card " + array[1] +" remove'><p>"+ array[0] + "</p></div>");
-    });
-  });
-  $("#clubs").click(function() {
-    $(".remove").remove();
-    deck.forEach(function(card){
-      var str = card.toString();
-      var array = str.split(" ");
-
-      if (clubs(array[1]))
-        $(".output").append("<div class='card " + array[1] +" remove'><p>"+ array[0] + "</p></div>");
-    });
-  });
 });

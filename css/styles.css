@@ -104,4 +104,8 @@ div[class*='suit']:after {
   text-align: center;
   background-image: url("../img/cards.png");
   color: white;
+
+}
+.jumbotron h1 {
+text-shadow: 2px 2px 5px blue;
 }
